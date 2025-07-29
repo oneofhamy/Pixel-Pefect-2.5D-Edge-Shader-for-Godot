@@ -347,7 +347,7 @@ Share your creations! Post screenshots or videos in [Discussions](../../discussi
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**TL;DR:** Free for commercial and personal use, modification allowed, attribution appreciated but not required.
+**Free for commercial and personal use, modification allowed, attribution greatly appreciated but not required.**
 
 ---
 
