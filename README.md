@@ -1,4 +1,4 @@
-# v0.8 Pixel-Perfect 2D Edge Detection Shader for Godot
+# v0.8 Pixel-Perfect 2.5D Edge Detection Shader for Godot
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Godot Engine](https://img.shields.io/badge/godot-4.x-blue.svg)](https://godotengine.org/)
