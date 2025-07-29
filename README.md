@@ -5,7 +5,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](../../pulls)
 [![Made for Pixel Art](https://img.shields.io/badge/pixel--art-optimized-yellow.svg)](#)
 
-> **A plug-and-play post-processing shader for crisp, stylized 2D outlines and comic-style edges in Godot—perfect for pixel art games, retro visuals, and stylized overlays.**
+> **A plug-and-play post-processing shader for crisp, stylized 2D, 2.5D, and 3D outlines and comic-style edges in Godot—perfect for pixel art games, retro visuals, and stylized overlays.**
 
 ![Edge Detection Demo](demo.gif)
 *Before and after: Original sprite → Edge detection applied*
