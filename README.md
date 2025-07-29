@@ -1,4 +1,4 @@
-# Pixel-Perfect 2D Edge Detection Shader for Godot
+# v0.8 Pixel-Perfect 2D Edge Detection Shader for Godot
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Godot Engine](https://img.shields.io/badge/godot-4.x-blue.svg)](https://godotengine.org/)
@@ -263,7 +263,7 @@ var technical_settings = {
 - **Use:** Simple presets only
 
 ### For Mobile Devices
-\`\`\`gdscript
+```gdscript
 # Mobile-optimized preset
 var mobile_settings = {
     "use_color_edges": true,
@@ -274,7 +274,7 @@ var mobile_settings = {
     "use_edge_smoothing": false,
     "edge_strength": 1.0
 }
-\`\`\`
+```
 
 ### Performance Impact Guide
 - 🟢 **Low Impact:** Basic color/luminance detection
@@ -362,6 +362,5 @@ Created with love for the Godot community.
 
 ---
 
-** If this shader helped your project, consider giving it a star!**
-
+***If this shader helped your project, consider giving it a star!***
 *Made with Godot 4.x | Tested on Windows, Linux, macOS, and Mobile*
