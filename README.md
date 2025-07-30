@@ -317,7 +317,7 @@ var mobile_settings = {
 ### Shader compilation errors
 **Check:**
 - Using Godot 4.x (not 3.x)
-- Shader applied to 2D node (ColorRect/TextureRect)
+- Shader applied to 2D/3D node (ColorRect/TextureRect)
 - No typos in parameter names when setting from GDScript
 
 ## Contributing
