@@ -1,5 +1,5 @@
 // ============================================================================
-// PROFESSIONAL EDGE DETECTION SHADER v0.8
+// PROFESSIONAL EDGE DETECTION SHADER v2.0
 // ============================================================================
 // A comprehensive post-processing shader for 2D edge detection with advanced
 // sampling, multiple render modes, and intelligent adaptation features.
@@ -839,38 +839,7 @@ BASIC SETUP:
 3. Enable "use_color_edges" and "use_luminance_edges"
 4. Adjust "edge_strength" and "color_threshold" to taste
 
-
-// ---------------- PIXEL ART EDGE PRESET ----------------
-uniform bool use_color_edges = true;          // Color boundaries
-uniform bool use_luminance_edges = false;     // (OFF for most pixel art, but enable if using much shading)
-uniform bool use_saturation_edges = false;
-uniform bool use_hue_edges = false;
-
-uniform vec3 edge_color = vec3(0.0, 0.0, 0.0); // Pure black for classic outlines
-uniform float edge_strength = 2.0;             // Extra strong lines for readability
-uniform float edge_thickness = 1.0;            // 1.0 for 1-pixel edges (true pixel scale)
-uniform float color_threshold = 0.08;          // *Lowered* to pick up all pixel transitions
-uniform float luminance_threshold = 0.08;      // Only matters if luminance edges enabled
-uniform bool use_multi_sampling = false;       // Turn OFF for perfect grid, no anti-alias
-uniform bool use_circular_sampling = false;    // Grid-based, not round
-uniform bool use_high_quality_sampling = false;// OFF: Only 4 neighbors checked
-uniform bool use_wide_sampling = false;        // OFF: No bleeding into diagonals
-uniform bool edge_only_mode = false;           // See only outlines if true (set true for debug)
-uniform bool sharpening_mode = false;          // Use only if you want extra sharp
-uniform bool use_edge_smoothing = false;       // NO smoothing for pixel art
-uniform bool use_edge_dilation = false;        // Use if you want thicker edges (rare for pixel art)
-uniform bool use_dithered_edges = false;       // OFF unless you want retro dotty effect
-uniform float dither_scale = 4.0;
-uniform float dither_strength = 0.2;
-uniform bool animate_edges = false;
-uniform float animation_speed = 1.0;
-uniform vec3 animation_color = vec3(1.0, 0.5, 0.0);
-uniform bool use_lighting_modulation = false;  // OFF: Edges ignore lighting (good for sprites)
-uniform float lighting_modulation_strength = 1.0;
-uniform bool use_adaptive_threshold = false;   // OFF for grid games
-
-
-OTHER COMMON PRESETS:
+COMMON PRESETS:
 
 COMIC BOOK STYLE:
 - use_color_edges = true
