@@ -353,7 +353,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-Created with love for the Godot community.
+Created with love for pixel-art and the Godot community by ONE OF HAM.
 
 **Special thanks to:**
 - Godot Engine developers for the amazing engine
