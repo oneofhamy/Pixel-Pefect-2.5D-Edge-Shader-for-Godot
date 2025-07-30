@@ -6,8 +6,6 @@
 // 
 // Perfect for: Stylized games, comic effects, technical visualization,
 // architectural visualization, and artistic post-processing.
-//
-// Created through incremental development with full Godot compatibility.
 // ============================================================================
 
 shader_type canvas_item;
