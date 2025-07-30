@@ -80,6 +80,25 @@ func apply_pixel_art_preset(material: ShaderMaterial):
 ### First Results in 1 Minute
 With the basic setup above, you should immediately see black outlines around color changes in your scene!
 
+## Adding the Edge Detection Shader to a ColorRect in Godot
+
+[![Instructions](https://github.com/oneofhamy/Pixel-Pefect-2.5D-Edge-Shader-for-Godot/blob/main/ED-CR_steps)
+
+Follow these steps to apply the Edge Detection shader to a `ColorRect`:
+
+1. **Select your `ColorRect` node** in the **Scene** panel.
+2. In the **Inspector**, scroll to the **Material** property.
+3. Click the empty material slot and choose **New ShaderMaterial**.
+4. Click the new **ShaderMaterial** to expand its options.
+5. In the **Shader** slot, click empty and choose **New Shader** (or **Load...** if you already saved it).
+6. Open the new shader and paste in the **Edge Detection shader code** from the repo.
+
+Your `ColorRect` is now using the post-processing Edge Detection effect.
+
+
+
+
+
 ## Usage Examples
 
 ### Pixel Art Game Outlines
