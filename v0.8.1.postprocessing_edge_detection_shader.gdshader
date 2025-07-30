@@ -1,5 +1,5 @@
 // ============================================================================
-// PROFESSIONAL EDGE DETECTION SHADER v2.0
+// POST PROCESSING EDGE DETECTION SHADER v0.8.1
 // ============================================================================
 // A comprehensive post-processing shader for 2D edge detection with advanced
 // sampling, multiple render modes, and intelligent adaptation features.
