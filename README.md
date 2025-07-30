@@ -363,4 +363,4 @@ Created with love for pixel-art and the Godot community by ONE OF HAM.
 ---
 
 ***If this shader helped your project, consider giving it a star!***
-*Made with Godot 4.x | Tested on Windows, Linux, macOS, and Mobile*
+*Made with Godot 4.x | Tested on Windows, Linux, and Mobile*
