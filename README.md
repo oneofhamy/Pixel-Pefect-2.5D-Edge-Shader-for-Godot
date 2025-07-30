@@ -24,6 +24,7 @@
 
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
+- [Adding the Edge Detection Shader to a ColorRect in Godot](#-adding-the-edge-detection-shader-to-a-colorrect-in-godot)
 - [Usage Examples](#-usage-examples)
 - [Presets & Recipes](#-presets--recipes)
 - [Inspector Organization](#-inspector-organization)
