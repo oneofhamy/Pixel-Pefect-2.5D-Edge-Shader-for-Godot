@@ -26,6 +26,7 @@
 - [Quick Start](#-quick-start)
 - [Usage Examples](#-usage-examples)
 - [Presets & Recipes](#-presets--recipes)
+- [Inspector Organization](#-inspector-organization)
 - [Parameter Reference](#-parameter-reference)
 - [Performance Tips](#-performance-tips)
 - [Troubleshooting](#-troubleshooting)
@@ -184,6 +185,66 @@ var technical_settings = {
     "edge_color": Vector3(0, 0, 0)
 }
 ```
+
+## Inspector Organization:
+
+### Edge Detection
+
+-  ```use_color_edges``` - Enable RGB difference detection
+-  ```use_luminance_edges``` - Enable brightness detection
+-  ```use_saturation_edges``` - Enable color intensity detection
+-  ```use_hue_edges``` - Enable color hue detection
+
+### Appearance
+
+-  ```edge_color``` - Color of detected edges
+-  ```edge_strength``` - Overall edge intensity
+-  ```edge_thickness``` - Edge line thickness
+
+### Sensitivity
+
+-  ```color_threshold``` - Color detection sensitivity
+-  ```luminance_threshold``` - Brightness detection sensitivity
+-  ```saturation_threshold``` - Saturation detection sensitivity
+-  ```hue_threshold``` - Hue detection sensitivity
+
+### Sampling
+
+-  ```use_multi_sampling``` - Use 8+ samples for quality
+-  ```use_circular_sampling``` - Circular vs cross pattern
+-  ```use_high_quality_sampling``` - Use 12 samples (slower)
+-  ```use_wide_sampling``` - 1.5x sampling radius
+
+### Render Modes
+
+-  ```edge_only_mode``` - Show only edges
+-  ```sharpening_mode``` - Add edges for enhancement
+-  ```sharpening_strength``` - Sharpening intensity
+
+### Enhancement
+
+-  ```use_edge_smoothing``` - Anti-aliasing
+-  ```use_edge_dilation``` - Expand edge thickness
+-  ```dilation_radius``` - Expansion amount
+
+### Stylization
+
+-  ```use_dithered_edges``` - Retro pixel dithering
+-  ```use_advanced_dither``` - Complex dither patterns
+-  ```dither_scale``` - Dither pattern size
+-  ```dither_strength``` - Dithering intensity
+
+### Animation
+
+-  ```animate_edges``` - Enable pulsing animation
+-  ```animation_speed``` - Animation speed
+-  ```animation_color``` - Secondary color for pulse
+
+### Adaptation
+
+-  ```use_lighting_modulation``` - Adapt to scene brightness
+-  ```lighting_modulation_strength``` - Adaptation strength
+-  ```use_adaptive_threshold``` - Auto-adjust sensitivity
 
 ## Parameter Reference
 
