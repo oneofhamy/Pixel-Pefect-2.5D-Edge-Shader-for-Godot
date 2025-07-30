@@ -186,7 +186,7 @@ var technical_settings = {
 }
 ```
 
-## Inspector Organization:
+## Inspector Organization
 
 ### Edge Detection
 
