@@ -83,7 +83,8 @@ With the basic setup above, you should immediately see black outlines around col
 
 ## Adding the Edge Detection Shader to a ColorRect in Godot
 
-[![Instructions](https://github.com/oneofhamy/Pixel-Pefect-2.5D-Edge-Shader-for-Godot/blob/main/ED-CR_steps)
+![Instructions](https://github.com/oneofhamy/Pixel-Pefect-2.5D-Edge-Shader-for-Godot/blob/main/ED-CR_steps)
+*image created by u/pandagoespoop*
 
 Follow these steps to apply the Edge Detection shader to a `ColorRect`:
 
