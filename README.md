@@ -38,7 +38,7 @@
 
 ### What is a Super-Shader?
 
-A super shader is what I'm calling these absurdly long shader scripts that are super mult-use that I am creating as part of a larger, pixel art project.
+A super-shader is what I'm calling these absurdly long shader scripts that are super mult-use that I am creating as part of a larger, pixel art project.
 
 ## Installation
 
