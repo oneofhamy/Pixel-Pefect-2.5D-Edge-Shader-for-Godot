@@ -1,3 +1,5 @@
+![logo](https://github.com/oneofhamy/Pixel-Pefect-2.5D-Edge-Shader-for-Godot/blob/main/pp_ld_shader_logo%20large.png)
+
 # v0.8 Pixel-Perfect 2.5D Edge Detection Shader for Godot
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
