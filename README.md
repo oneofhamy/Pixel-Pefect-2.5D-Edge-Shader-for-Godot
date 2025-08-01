@@ -29,6 +29,7 @@
 - [Adding the Edge Detection Shader to a ColorRect in Godot](#-adding-the-edge-detection-shader-to-a-colorrect-in-godot)
 - [Usage Examples](#-usage-examples)
 - [Presets & Recipes](#-presets--recipes)
+- [Neon Tube Color Masking (Multicolor Neon Signs!)](#-neon-tube-color-masking-multicolor-neon-signs)
 - [Inspector Organization](#-inspector-organization)
 - [Parameter Reference](#-parameter-reference)
 - [Performance Tips](#-performance-tips)
@@ -213,6 +214,90 @@ var technical_settings = {
     "edge_color": Vector3(0, 0, 0)
 }
 ```
+
+## Neon Tube Color Masking (Multicolor Neon Signs!)
+
+**NEW IN v0.8.2: Neon Sign Tool – Multicolor, and Flicker**
+
+Edge detection isn’t just for outlines anymore—now your post-process shader can power true neon sign effects with animated, multi-color tubes and classic neon flicker.
+
+- Assign up to 14+ vibrant neon tube colors per sign using a mask texture.
+- Each pixel in your mask texture designates a “tube index” (color) for that sign segment.
+- Use the built-in expanded neon palette for classic real-world neon effects: Electric Blue, Hot Pink, Lemon Yellow, Lime Green, Orange, Deep Red, and more!
+
+### How It Works
+
+1. Create a Mask/ID Texture:  
+   Paint your sign’s tubes in solid colors (R/G/B or index values). Each channel or value in the mask maps to a neon color index.
+2. Assign the mask in your material:  
+   Set `use_mask_texture` to true. Assign your mask texture to `mask_texture`.
+3. The shader uses your mask to look up the correct neon color from the built-in palette, per-pixel.
+4. Supports at least 15 preset neon colors (see full palette below), and you can expand the palette as needed.
+
+### Palette Reference
+
+| Index | Name           | Color (RGB)      |
+|-------|----------------|------------------|
+| 0     | Electric Blue  | (0.0, 0.9, 1.0)  |
+| 1     | Hot Pink       | (1.0, 0.27, 0.95)|
+| 2     | Lemon Yellow   | (1.0, 1.0, 0.3)  |
+| 3     | Lime Green     | (0.3, 1.0, 0.32) |
+| 4     | Orange         | (1.0, 0.55, 0.1) |
+| 5     | Deep Red       | (1.0, 0.12, 0.13)|
+| 6     | Pure White     | (1.0, 1.0, 1.0)  |
+| 7     | Aqua Cyan      | (0.08, 1.0, 0.85)|
+| 8     | Violet Purple  | (0.63, 0.25, 1.0)|
+| 9     | Mint Green     | (0.6, 1.0, 0.7)  |
+| 10    | Tangerine      | (1.0, 0.75, 0.1) |
+| 11    | Magenta        | (1.0, 0.14, 0.82)|
+| 12    | Sky Blue       | (0.35, 0.67, 1.0)|
+| 13    | Ruby Red       | (0.95, 0.1, 0.25)|
+| 14    | Ultraviolet    | (0.64, 0.0, 1.0) |
+
+Mask index values can be assigned using R, G, B channels or as a float in the RED channel (e.g. 0.0 = blue, 0.07 = pink, 0.14 = yellow, etc).
+
+### Classic Neon Flicker and Animation
+
+- Bring your signs to life with customizable neon flicker!
+- Just set `animate_edges = true` and tweak `animation_speed` and `animation_color` for pulsing, glowing, or “broken” tube flicker.
+- Advanced “broken flicker” mode: uses stuttered pseudo-random math for realistic, vintage-style tube flicker—per-pixel, per-tube if desired!
+- Each tube can flicker independently for extra realism (see advanced docs).
+
+### Example Settings for Flicker
+
+uniform bool animate_edges = true;
+uniform float animation_speed = 4.2;
+uniform vec3 animation_color = vec3(1.0, 1.0, 1.0); // white or light tube color
+
+### Custom Flicker
+
+- Switch between smooth glow and harsh “broken” flicker in the shader (toggle provided).
+- The flicker animation blends between tube color and animation color, with per-tube randomness available.
+
+### How To Set Up Multicolor Neon Edges
+
+1. Paint your mask texture:  
+   Use any paint tool. Each tube gets a unique color (or index value) according to the palette table.
+2. Add your mask as a texture parameter:  
+   In your Godot material, assign the texture to mask_texture. Set use_mask_texture to true.
+3. Pick your flicker settings:  
+   Set animate_edges, animation_speed, and animation_color as needed.
+4. Open the live preview panel:  
+   Use the provided EditorPlugin to see your sign shader in action.
+
+### What Else Can You Do?
+
+- Edge-only output for bloom/composite:  
+  Use edge_only_mode = true to output just the neon tubes as a mask for advanced bloom or composite workflows.
+- Fully customizable tube palette:  
+  Edit the neon_palette() function in the shader for infinite color possibilities.
+- Smooth/anti-aliased or sharp pixel-perfect edges:  
+  All existing edge detection quality and stylization controls work with neon mode!
+
+Ready to bring your UI, game, or cutscene to life with true 80s arcade neon?  
+This tool’s for you.
+
+See /examples/ for sample masks and plugin usage.
 
 ## Inspector Organization
 
