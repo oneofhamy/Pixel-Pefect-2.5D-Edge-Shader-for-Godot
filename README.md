@@ -221,7 +221,7 @@ var technical_settings = {
 
 **NEW IN v0.8.2: Neon Sign Tool – Multicolor, and Flicker**
 
-Edge detection isn’t just for outlines anymore—now your post-process shader can power true neon sign effects with animated, multi-color tubes and classic neon flicker.
+Edge detection isn’t just for outlines, your post-process shader can power true neon sign effects with animated, multi-color tubes and classic neon flicker.
 
 - Assign up to 14+ vibrant neon tube colors per sign using a mask texture.
 - Each pixel in your mask texture designates a “tube index” (color) for that sign segment.
