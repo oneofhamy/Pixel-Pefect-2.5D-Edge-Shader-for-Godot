@@ -1,11 +1,13 @@
 // ============================================================================
-// POST PROCESSING EDGE DETECTION SUPER-SHADER v0.8.1
+// PROFESSIONAL EDGE DETECTION SHADER v0.8.2
 // ============================================================================
 // A comprehensive post-processing shader for 2D edge detection with advanced
 // sampling, multiple render modes, and intelligent adaptation features.
 // 
 // Perfect for: Stylized games, comic effects, technical visualization,
 // architectural visualization, and artistic post-processing.
+//
+// Created through incremental development with full Godot compatibility.
 // ============================================================================
 
 shader_type canvas_item;
@@ -27,6 +29,20 @@ uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
  * This is crucial for proper edge thickness calculation.
  */
 uniform vec2 screen_size = vec2(512.0, 512.0);
+
+/**
+ * Use a mask texture to assign neon tube colors per region.
+ * ON: Use the colors specified in mask_texture for edge coloring.
+ * OFF: Use the global edge_color as before.
+ */
+uniform bool use_mask_texture = false;
+
+/**
+ * Mask/ID texture for region-specific tube colors.
+ * Each region of your mask uses R, G, or B channel to signal the tube color index.
+ * Supply this from your GDScript as a regular texture.
+ */
+uniform sampler2D mask_texture;
 
 // ============================================================================
 // EDGE DETECTION METHODS - Choose which types of edges to detect
@@ -643,6 +659,40 @@ float detect_hue_edges(vec2 uv) {
     }
 }
 
+// === NEON TUBE COLOR PALETTE ===
+/**
+ * Returns a preset neon color for each tube index.
+ * 0: Electric Blue      1: Hot Pink          2: Lemon Yellow
+ * 3: Lime Green         4: Orange            5: Deep Red
+ * 6: Pure White         7: Aqua Cyan         8: Violet Purple
+ * 9: Mint Green        10: Tangerine         11: Magenta
+ *12: Sky Blue          13: Ruby Red          14: Ultra Violet
+ * (Expand as needed)
+ */
+
+vec3 neon_palette(int idx) {
+    if (idx == 0)  return vec3(0.0, 0.9, 1.0);     // Electric Blue
+    if (idx == 1)  return vec3(1.0, 0.27, 0.95);   // Hot Pink
+    if (idx == 2)  return vec3(1.0, 1.0, 0.3);     // Lemon Yellow
+    if (idx == 3)  return vec3(0.3, 1.0, 0.32);    // Lime Green
+    if (idx == 4)  return vec3(1.0, 0.55, 0.1);    // Orange
+    if (idx == 5)  return vec3(1.0, 0.12, 0.13);   // Deep Red
+    if (idx == 6)  return vec3(1.0, 1.0, 1.0);     // Pure White
+    if (idx == 7)  return vec3(0.08, 1.0, 0.85);   // Aqua Cyan
+    if (idx == 8)  return vec3(0.63, 0.25, 1.0);   // Violet Purple
+    if (idx == 9)  return vec3(0.6, 1.0, 0.7);     // Mint Green
+    if (idx == 10) return vec3(1.0, 0.75, 0.1);    // Tangerine
+    if (idx == 11) return vec3(1.0, 0.14, 0.82);   // Magenta
+    if (idx == 12) return vec3(0.35, 0.67, 1.0);   // Sky Blue
+    if (idx == 13) return vec3(0.95, 0.1, 0.25);   // Ruby Red
+    if (idx == 14) return vec3(0.64, 0.0, 1.0);    // Ultra Violet
+
+    // Add more if needed!
+    return vec3(1.0, 1.0, 1.0); // Fallback: Pure White
+}
+
+
+
 // === EDGE COMBINATION ===
 float detect_all_edges(vec2 uv) {
     float color_edge = detect_color_edges(uv);
@@ -770,12 +820,34 @@ float calculate_lighting_modulation(vec2 uv) {
 }
 
 // === ANIMATION ===
-vec3 get_final_edge_color() {
-    if (!animate_edges) return edge_color;
-    
-    float pulse = sin(TIME * animation_speed) * 0.5 + 0.5;
-    return mix(edge_color, animation_color, pulse);
+/**
+ * Get the edge color for each pixel.
+ * - If use_mask_texture is ON, samples mask_texture to pick color by region.
+ * - If animate_edges is ON, blends between tube color and animation_color.
+ * - Otherwise, uses neon_palette or global edge_color.
+ */
+vec3 get_final_edge_color(vec2 uv, vec3 original_color) {
+    vec3 base_color = edge_color;
+
+    if (use_mask_texture) {
+        // Sample the mask at this pixel
+        vec3 idc = texture(mask_texture, uv).rgb;
+        int idx = 0;
+        if (idc.r > 0.5)      idx = 1;
+        else if (idc.g > 0.5) idx = 2;
+        else if (idc.b > 0.5) idx = 3;
+        // Else idx = 0 (default blue)
+        base_color = neon_palette(idx);
+    }
+
+    if (animate_edges) {
+        float pulse = sin(TIME * animation_speed) * 0.5 + 0.5;
+        return mix(base_color, animation_color, pulse);
+    } else {
+        return base_color;
+    }
 }
+
 
 // ============================================================================
 // MAIN FRAGMENT FUNCTION - This is where everything comes together
@@ -809,7 +881,7 @@ void fragment() {
     edge_factor = clamp(edge_factor, 0.0, 1.0);
     
     // Step 8: Get final edge color (potentially animated)
-    vec3 final_edge_color = get_final_edge_color();
+	vec3 final_edge_color = get_final_edge_color(uv, original_color);
     
     // Step 9: Apply render mode and output final result
     if (edge_only_mode) {
@@ -837,7 +909,38 @@ BASIC SETUP:
 3. Enable "use_color_edges" and "use_luminance_edges"
 4. Adjust "edge_strength" and "color_threshold" to taste
 
-COMMON PRESETS:
+
+// ---------------- PIXEL ART EDGE PRESET ----------------
+uniform bool use_color_edges = true;          // Color boundaries
+uniform bool use_luminance_edges = false;     // (OFF for most pixel art, but enable if using much shading)
+uniform bool use_saturation_edges = false;
+uniform bool use_hue_edges = false;
+
+uniform vec3 edge_color = vec3(0.0, 0.0, 0.0); // Pure black for classic outlines
+uniform float edge_strength = 2.0;             // Extra strong lines for readability
+uniform float edge_thickness = 1.0;            // 1.0 for 1-pixel edges (true pixel scale)
+uniform float color_threshold = 0.08;          // *Lowered* to pick up all pixel transitions
+uniform float luminance_threshold = 0.08;      // Only matters if luminance edges enabled
+uniform bool use_multi_sampling = false;       // Turn OFF for perfect grid, no anti-alias
+uniform bool use_circular_sampling = false;    // Grid-based, not round
+uniform bool use_high_quality_sampling = false;// OFF: Only 4 neighbors checked
+uniform bool use_wide_sampling = false;        // OFF: No bleeding into diagonals
+uniform bool edge_only_mode = false;           // See only outlines if true (set true for debug)
+uniform bool sharpening_mode = false;          // Use only if you want extra sharp
+uniform bool use_edge_smoothing = false;       // NO smoothing for pixel art
+uniform bool use_edge_dilation = false;        // Use if you want thicker edges (rare for pixel art)
+uniform bool use_dithered_edges = false;       // OFF unless you want retro dotty effect
+uniform float dither_scale = 4.0;
+uniform float dither_strength = 0.2;
+uniform bool animate_edges = false;
+uniform float animation_speed = 1.0;
+uniform vec3 animation_color = vec3(1.0, 0.5, 0.0);
+uniform bool use_lighting_modulation = false;  // OFF: Edges ignore lighting (good for sprites)
+uniform float lighting_modulation_strength = 1.0;
+uniform bool use_adaptive_threshold = false;   // OFF for grid games
+
+
+OTHER COMMON PRESETS:
 
 COMIC BOOK STYLE:
 - use_color_edges = true
@@ -872,3 +975,19 @@ PERFORMANCE TIPS:
 - Lower dither_scale for less processing
 
 */
+
+// ------------------------------------------------------------------------
+// NEON MULTICOLOR EDGES GUIDE:
+// ------------------------------------------------------------------------
+// To assign custom tube colors, create a mask/ID texture where:
+//   - Red channel (R > 0.5) = Tube Color 1 (Pink)
+//   - Green channel (G > 0.5) = Tube Color 2 (Yellow)
+//   - Blue channel (B > 0.5) = Tube Color 3 (Green)
+//   - Black (all channels < 0.5) = Tube Color 0 (Blue, default)
+//
+// To add more colors, extend neon_palette() and add more index checks.
+//
+// Assign your mask texture to the material's "mask_texture" property.
+// Set "use_mask_texture" to true.
+// That's it!
+// ------------------------------------------------------------------------
