@@ -217,6 +217,8 @@ var technical_settings = {
 
 ## Neon Tube Color Masking (Multicolor Neon Signs!)
 
+![logo](https://raw.githubusercontent.com/oneofhamy/Pixel-Pefect-2.5D-Edge-Shader-for-Godot/refs/heads/main/NEON%20GLOW.png)
+
 **NEW IN v0.8.2: Neon Sign Tool – Multicolor, and Flicker**
 
 Edge detection isn’t just for outlines anymore—now your post-process shader can power true neon sign effects with animated, multi-color tubes and classic neon flicker.
